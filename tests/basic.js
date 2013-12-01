@@ -50,6 +50,7 @@ describe('basic verifier test', function() {
   });
 
   it('test servers should stop', function(done) {
+    (JSON.stringify(process.env, null, "  ")).should.equal("");
     idp.stop(function(e) {
       verifier.stop(function(e1) {
         done(e || e1);
