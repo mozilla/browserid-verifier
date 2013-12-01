@@ -24,7 +24,8 @@ temp.mkdir("verifier-coverage-data", function(err, dn) {
       stdio: 'inherit'
     });
 
-  p.on('exit', function(err, code) {
+  p.on('exit', function(code) {
+    console.log(code);
     // now let's generate coverage data
     var p = spawn(
       process.env._,
@@ -38,20 +39,27 @@ temp.mkdir("verifier-coverage-data", function(err, dn) {
         cwd: path.join(__dirname, '..'),
         stdio: 'pipe'
       });
+
     var html = "";
     p.stdout.on('data', function(data) {
       html += data;
     });
-    p.on('exit', function(err, code) {
-      if (err) {
-        console.log("error assessing coverage stats:", err);
+
+    p.on('exit', function(code) {
+      if (code !== 0) {
+        console.log("error assessing coverage stats:", code);
       }
+      console.log(html);
       // write coverage report
       fs.writeFileSync('coverage.html', html);
       // extract %age
       var m = /<div\s*class="percentage">(\d+%)<\/div>/.exec(html);
-      console.log((m.length > 1) ? m[1] : "unknown",
-                  'code coverage (see coverage.html)');
+      var coverage = "unknown";
+      console.log(m[0]);
+      if (m && m.length > 1) {
+        coverage = m[1];
+      }
+      console.log(coverage, 'code coverage (see coverage.html)');
     });
   });
 });

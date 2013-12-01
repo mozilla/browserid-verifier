@@ -3,7 +3,8 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
 var fs = require('fs'),
-  path = require('path');
+  path = require('path'),
+should = require('should');
 
 function mergeCovData(data) {
   if (!global) global = {};
@@ -30,6 +31,7 @@ function mergeCovData(data) {
 
 describe('code coverage', function() {
   it ('env var to coverage data should be set', function(done) {
+    console.log( process.env.REPORT_COVERAGE_DIR);
     should.exist(process.env.REPORT_COVERAGE_DIR);
     done();
   });
