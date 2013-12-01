@@ -47,7 +47,7 @@ Verifier.prototype.start = function(cb) {
   }
 
   this.process = cp.spawn(
-    process.env._,
+    process.execPath,
     [
       path.join(repoBaseDir, 'server.js')
     ],

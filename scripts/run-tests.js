@@ -12,7 +12,7 @@ temp.mkdir("verifier-coverage-data", function(err, dn) {
 
   // execute all tests
   var p = spawn(
-    process.env._,
+    process.execPath,
     [
       path.join(__dirname, '..', 'node_modules', '.bin', 'mocha'),
       '-R',
@@ -28,7 +28,7 @@ temp.mkdir("verifier-coverage-data", function(err, dn) {
     console.log(code);
     // now let's generate coverage data
     var p = spawn(
-      process.env._,
+      process.execPath,
       [
         path.join(__dirname, '..', 'node_modules', '.bin', 'mocha'),
         '-R',
