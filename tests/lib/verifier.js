@@ -26,6 +26,10 @@ Verifier.prototype.setFallback = function(idp) {
   else this.config.fallback = idp.domain();
 };
 
+Verifier.prototype.setHTTPTimeout = function(timeo) {
+  this.config.httpTimeout = timeo;
+};
+
 Verifier.prototype.url = function() {
   if (!this._url) {
     throw new Error("verifier not running");
@@ -53,7 +57,8 @@ Verifier.prototype.start = function(cb) {
       env: {
         INSECURE_SSL: true,
         REPORT_COVERAGE_DIR: process.env.REPORT_COVERAGE_DIR,
-        FALLBACK_DOMAIN: this.config.fallback
+        FALLBACK_DOMAIN: this.config.fallback,
+        HTTP_TIMEOUT: this.config.httpTimeout || 8.0
       }
     });
 

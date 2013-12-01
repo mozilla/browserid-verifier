@@ -18,6 +18,7 @@ describe('fallback configuration test', function() {
   it('test servers should start', function(done) {
     idp.start(function(e) {
       verifier.setFallback(idp);
+      verifier.setHTTPTimeout(20.0);
       verifier.start(function(e1) {
         done(e || e1);
       });

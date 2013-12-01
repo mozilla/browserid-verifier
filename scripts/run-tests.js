@@ -43,6 +43,9 @@ temp.mkdir("verifier-coverage-data", function(err, dn) {
       html += data;
     });
     p.on('exit', function(err, code) {
+      if (err) {
+        console.log("error assessing coverage stats:", err);
+      }
       // write coverage report
       fs.writeFileSync('coverage.html', html);
       // extract %age
