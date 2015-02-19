@@ -21,7 +21,7 @@ HTTP.
 
 To run the verification server via Docker, two steps are required:
 
-    $ docker build --rm -t mozilla/browserid_verifier
+    $ docker build --rm -t mozilla/browserid_verifier .
     $ docker run --rm -v $PWD:/opt/fxa mozilla/browserid_verifier npm install
     $ docker run --rm -v $PWD:/opt/fxa --net=host mozilla/browserid_verifier
 
