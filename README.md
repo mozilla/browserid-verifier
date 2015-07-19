@@ -17,6 +17,16 @@ To run the verification server locally:
 At this point, your verifier will be running and available to use locally over
 HTTP.
 
+## Docker Based Development
+
+To run the verification server via Docker, two steps are required:
+
+    $ docker build --rm -t mozilla/browserid_verifier .
+    $ docker run --rm -v $PWD:/opt/fxa mozilla/browserid_verifier npm install
+    $ docker run --rm -v $PWD:/opt/fxa --net=host mozilla/browserid_verifier
+
+This method shares the codebase into the running container so that you can install npm and various modules required by package.json. It then runs browserid-verifier in a container, while allowing you to use your IDE of choice from your normal desktop environment to develop code.
+
 ## Configuration
 
 There are several configuration variables which can change the behavior of the
