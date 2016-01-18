@@ -1,20 +1,34 @@
-language: node_js
+sudo: required
 
-node_js:
- - "0.10"
- - "0.12"
+language: node_js
+node_js: 
  - "4"
 
-addons:
-  apt_packages:
-    - libgmp-dev
+services: 
+ - docker
 
 env:
   global:
+    - REPO=mozilla/browserid-verifier
     - TMPDIR=/tmp
-
-sudo: false
+    - secure: "K4nUGI0OgMePKicAIlMLVe0m4miR6DmzcxHhHx3Y/cUlf/I7+q8KGGUHLbWyUyD/ewkj0pxT+buOHWR9DtjcW0zjaNTBAx2ig1bkZuLbRRZTNCCkZc9/ltFDiE5J1Nf/8yCTnPzTHOtWzhaa+6Gvuq+ZF2e3aCSdDNLP21WY6RU="
 
 notifications:
   email:
     - rfkelly@mozilla.com
+    - bwong@mozilla.com
+
+before_install:
+    - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+
+install:
+    - docker build -t app:build .
+
+script:
+    - docker run app:build test
+
+after_success:
+    # push containers into docker hub
+    - "if [[ $TRAVIS_BRANCH == master ]]; then DBRANCH=latest; else DBRANCH=$TRAVIS_BRANCH; fi; docker tag app:build $REPO:$DBRANCH; docker push $REPO:$DBRANCH"
+    - "if [ ! -z $TRAVIS_TAG ]; then docker tag app:build $REPO:$TRAVIS_TAG; docker push $REPO:$TRAVIS_TAG"
+
