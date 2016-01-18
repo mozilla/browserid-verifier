@@ -12,7 +12,7 @@ RUN groupadd --gid 1001 app && \
 WORKDIR /app
 
 # Install node requirements and clean up unneeded cache data
-COPY ./package.json /app
+COPY package.json package.json
 RUN su app -c "npm install" && \
     npm cache clear && \
     rm -rf ~app/.node-gyp && \
