@@ -14,8 +14,7 @@ WORKDIR /app
 
 # Install node requirements and clean up unneeded cache data
 COPY package.json package.json
-RUN npm -g install npm@latest && \
-    su app -c "npm install" && \
+RUN su app -c "npm install" && \
     npm cache clear && \
     rm -rf ~app/.node-gyp && \
     apt remove -y libgmp-dev && \
