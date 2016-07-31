@@ -13,6 +13,7 @@ WORKDIR /app
 
 # Install node requirements and clean up unneeded cache data
 COPY package.json package.json
+RUN chown app:app /app/package.json
 RUN su app -c "npm install" && \
     npm cache clear && \
     rm -rf ~app/.node-gyp && \
@@ -23,6 +24,7 @@ RUN su app -c "npm install" && \
 # Finally copy in the app's source file
 # More cache friendly?
 COPY . /app
+RUN chown -R app:app /app
 
 USER app
 ENTRYPOINT ["npm"]
