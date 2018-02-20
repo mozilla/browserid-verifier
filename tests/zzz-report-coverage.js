@@ -16,7 +16,7 @@ if (!process.env.NO_COVERAGE) {
     it('tests should exceed ' + EXPECT_COVERAGE + '% coverage', function(done) {
       ass.report('json', function(err, r) {
         should.not.exist(err);
-        (r.percent).should.be.above(EXPECT_COVERAGE);
+        (r.percent).should.be.aboveOrEqual(EXPECT_COVERAGE);
         done();
       });
     });
