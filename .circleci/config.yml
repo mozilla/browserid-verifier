@@ -29,19 +29,15 @@ jobs:
 
       - run:
           name: Build deployment container image
-          command: docker build -f Dockerfile-build -t browserid-verifier:build .
+          command: docker build -f Dockerfile -t browserid-verifier:build .
 
       - run:
           name: Check npm install
           command: docker run --rm -it browserid-verifier:build npm ls --production
 
       - run:
-          name: Build test container image
-          command: docker build -f Dockerfile-test -t browserid-verifier:test .
-
-      - run:
           name: Run Tests
-          command: docker run browserid-verifier:test npm test
+          command: docker run browserid-verifier:build npm test
 
       - run:
           name: Push to Dockerhub
