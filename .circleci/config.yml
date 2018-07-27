@@ -32,10 +32,6 @@ jobs:
           command: docker build -f Dockerfile -t browserid-verifier:build .
 
       - run:
-          name: Check npm install
-          command: docker run --rm -it browserid-verifier:build npm ls --production
-
-      - run:
           name: Run Tests
           command: docker run browserid-verifier:build npm test
 
