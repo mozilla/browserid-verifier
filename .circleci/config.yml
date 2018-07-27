@@ -33,7 +33,7 @@ jobs:
 
       - run:
           name: Run Tests
-          command: docker run browserid-verifier:build npm test
+          command: docker run browserid-verifier:build test
 
       - run:
           name: Push to Dockerhub
